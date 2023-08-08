@@ -7,6 +7,8 @@ const editInput = document.querySelector("#edit-input")
 const cancelEditBtn = document.querySelector("#cancel-edit-btn")
 
 let oldInputValues// armazenar as task antigas
+// Declaração da lista global para armazenar os elementos h3
+const h3Elements = [];
 
 //funções
 const saveTodo = function (text) {
@@ -37,6 +39,9 @@ const saveTodo = function (text) {
     // limpar input quando aperta o botão submit
     todoInput.value= ''
     todoInput.focus()
+     // Adicionar o elemento h3 à lista global
+     h3Elements.push(todoTitle);
+     console.log(h3Elements)
 }
 // Função para esconder e aparecer o edit
 
@@ -89,7 +94,7 @@ document.addEventListener('click', function(ev){
 
 
     if(targetEl.classList.contains("finish-todo")) {
-        parentEl.classList.toggle("done") //usa-se toggle para fazer e desfazer a ação do botão
+        parentEl.classList.toggle("feito") //usa-se toggle para fazer e desfazer a ação do botão
     }
     //Evento para o botão Remove
 
@@ -128,3 +133,53 @@ editForm.addEventListener("submit", function(ev){
     }
     toggleForms()
 })
+
+
+
+// Função para realizar a busca no título das tasks
+const searchTodo = function(ev) {
+    ev.preventDefault()
+    const searchTerm = document.querySelector("#search2").value.toLowerCase(); // Pegar o valor do input da busca e converter para minúsculas
+
+    h3Elements.forEach(function(todoTitle) {
+        const titleText = todoTitle.innerText.toLowerCase(); // Pegar o texto do h3 e converter para minúsculas
+
+        if (titleText.includes(searchTerm)) {
+            todoTitle.parentNode.style.display =  "block"; // Se a busca estiver contida no texto, exibir a div pai (div com classe 'todo')
+            todoTitle.parentNode.style.display = "flex"
+        } else {
+            todoTitle.parentNode.style.display = "none"; // Caso contrário, esconder a div pai
+        }
+        
+             
+    });
+};
+// Evento para o botão de busca
+document.querySelector("#search-button").addEventListener("click", searchTodo);
+
+
+
+/// Função para exibir todos os elementos h3 novamente
+const showAllTodos = function() {
+    const searchTerm = document.querySelector("#search2").value = ''
+
+    h3Elements.forEach(function(todoTitle) {
+        const titleText = todoTitle.innerText.toLowerCase();
+
+        if (titleText.includes(searchTerm)) {
+            todoTitle.parentNode.style.display = "block";
+            todoTitle.parentNode.style.display = "flex"
+        } else {
+            todoTitle.parentNode.style.display = "none";
+        }
+
+    });
+};
+
+
+// Evento para o botão "erase-button"
+document.querySelector("#erase-button").addEventListener("click", function(ev) {
+    ev.preventDefault();
+    
+    showAllTodos(); // Chamar a função para exibir todos os elementos h3 novamente
+});
