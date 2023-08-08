@@ -11,8 +11,10 @@
 
 body{
     background-image: url('pexels-peter-fazekas-1089455.jpg');
-    background-position: center;
+    display: block;
+    margin: 0px;
     background-size: cover;
+    
 
 }
 
@@ -28,6 +30,11 @@ button{
     align-items: center;
     transition: 0.4s;
 }
+
+#search-button{
+    margin: 0 0.3rem;
+}
+
 
 button:hover {
     background-color:  #30503a;
@@ -153,12 +160,13 @@ input, select {
     margin-left: 0.4rem;
 }
 
-.done {
+.feito {
     background-color: #30503a;
 }
 
-.done h3 {
+.feito h3 {
     color: #fff;
     text-decoration: line-through;
     font-style: italic;
 }
+
